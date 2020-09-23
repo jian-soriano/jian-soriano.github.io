@@ -17,6 +17,7 @@ app.route('/api')
   .post((req, res) => {
     console.log('POST request detected');
     console.log('Form data in res.body', req.body);
+    res.send('<h1 style="text-align:center; font-size:400px">Hello World</h1>');
   });
 
 app.listen(port, () => {
