@@ -35,7 +35,7 @@
                 <textarea rows="5" cols="33" id="message" name="message" placeholder="Enter your message here"></textarea>
             </li>
             <li>
-                <p>Age</p>
+                <p class="checkbox-list-label">Age</p>
                 <ul class="flex-inner">
                     <li>
                         <input type="checkbox" id="eighteen-to-thirtyfive" name="eighteen-to-thirtyfive">
@@ -53,9 +53,39 @@
             </li>
             <li>
                 <button type="submit" id="submit" name="submit">Submit</button>
+                <button type="button" id="activate" name="activate" onclick="testFunction()">Activate</button>
             </li>
         </ul>
     </form>
+    
+    <script>
+        function testFunction() {
+            fetch('/api')
+            .then((response) => response.text())
+            .then((response) => {
+                const header = document.querySelector("header");
+                const title = document.querySelector("title");
+                const flexOuter = document.querySelector(".flex-outer")
+                const fruitLabels = document.querySelectorAll(".flex-inner label");
+                const fruits = ["mango", "berry", "tomato"];
+
+                header.querySelector("h1").innerHTML = response;
+                title.innerHTML = response;
+
+                document.body.style.backgroundColor = "#33FFBB";
+                
+                flexOuter.style.margin = "0 auto";
+
+                document.querySelector(".checkbox-list-label").innerHTML = "Fruits";
+                fruitLabels.forEach((fruit, i) => fruit.innerHTML = fruits[i])
+
+                console.log(response);
+            })
+            .catch((err) => {
+                console.log(err);
+            })
+        }
+    </script>
 </body>
 
 </html>
