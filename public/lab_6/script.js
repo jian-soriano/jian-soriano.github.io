@@ -79,6 +79,9 @@ document.body.addEventListener('submit', async (e) => {
       console.log(countries);
 
       //  Inject an ordered list element with the classname "flex-inner" into your document.
+      const countriesList = document.createElement('div');
+      countriesList.setAttribute('class', 'flex-inner');
+      $("form").prepend(countriesList);
 
       console.log('fromServer', fromServer);
     })
