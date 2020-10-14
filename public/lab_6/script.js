@@ -36,28 +36,16 @@ document.body.addEventListener('submit', async (e) => {
     .then((fromServer) => {
       // You're going to do your lab work in here. Replace this comment.
       let allCountries = fromServer;
+      $('.flex-inner').remove();  //  removes the list of checkboxes on each click if exists
 
       //  Get 10 random countries from the returned value list
 
-      //  is it possible to use .map() while checking the contents of the current instance of the array?
-      
-      /*const countries = range(10);
-      countries.map((country) => {
-        let newCountry = allCountries[randomInt(allCountries.length - 1)];
-        console.log(newCountry);
-        while (this.includes(newCountry)) {
-          newCountry = allCountries[randomInt(allCountries.length - 1)];
-          console.log(newCountry);
-        }
-        return newCountry;
-      });
-      console.log(allCountries[1]);
-      console.log(countries);*/
+        //  is it possible to use .map() while checking the contents of the current instance of the array?
 
       const countries = range(10).map((country) => {  //  creates array of length 10, repopulates with country objects using .map()
         const int = randomInt(allCountries.length - 1);
         const c = allCountries[int];  //  gets random country from current instance of allCountries
-        //console.log(c);
+
         allCountries = allCountries.filter((remove) => {  //  filters selected country from allCountries to prevent duplicates
           if (remove === c) {
             return false;
@@ -66,24 +54,20 @@ document.body.addEventListener('submit', async (e) => {
             return true;
           }
         });
-        //console.log(c);
-        //console.log(allCountries);
-        //console.log(fromServer);
+
         return c;
-        //  return allCountries[randomInt(allCountries.length - 1)]
+        //  this line can be used alone to get countries, but won't prevent duplicates ==> return allCountries[randomInt(allCountries.length - 1)]
       });
-      console.log(countries);
       
       //  Sort the ten countries in reverse alphabetical order using .sort() and the sort function provided
-      countries.sort((a, b) => sortFunction(b, a, 'name')); //  .sort() makes changes to the object itself, no need to new variable
-      console.log(countries);
+      countries.sort((a, b) => sortFunction(b, a, 'name')); //  .sort() makes changes to the object itself, no need for new variable
 
       //  Inject an ordered list element with the classname "flex-inner" into your document.
       const countriesList = document.createElement('ol');
       countriesList.setAttribute('class', 'flex-inner');
       $('form').prepend(countriesList);
 
-      //  Inject list element concaining a checkbox and label for each country into the list
+      //  Inject list element containing a checkbox and label for each country into the list
       for (let i = 0; i < countries.length; i++) {
         const c = countries[i];
         const listElement = document.createElement('li');
