@@ -79,9 +79,29 @@ document.body.addEventListener('submit', async (e) => {
       console.log(countries);
 
       //  Inject an ordered list element with the classname "flex-inner" into your document.
-      const countriesList = document.createElement('div');
+      const countriesList = document.createElement('ol');
       countriesList.setAttribute('class', 'flex-inner');
-      $("form").prepend(countriesList);
+      $('form').prepend(countriesList);
+
+      //  Inject list element concaining a checkbox and label for each country into the list
+      for (let i = 0; i < countries.length; i++) {
+        const c = countries[i];
+        const listElement = document.createElement('li');
+        const inputElement = document.createElement('input');
+        const labelElement = document.createElement('label');
+
+        inputElement.setAttribute('type', 'checkbox');
+        inputElement.setAttribute('value', c.code);
+        inputElement.setAttribute('id', c.code)
+        inputElement.setAttribute('name', c.name);
+        
+        labelElement.setAttribute('for', inputElement.id);
+        labelElement.innerHTML = c.name;
+        
+        listElement.append(inputElement);
+        listElement.append(labelElement);
+        $('.flex-inner').append(listElement);
+      }
 
       console.log('fromServer', fromServer);
     })
